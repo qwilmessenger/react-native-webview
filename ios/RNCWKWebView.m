@@ -268,6 +268,16 @@ static NSURLCredential* clientAuthenticationCredential;
 
 - (void)visitSource
 {
+  NSString *fileUrl = [RCTConvert NSString:_source[@"fileUrl"]];
+  NSString *allowingReadAccessToURL = [RCTConvert NSString:_source[@"allowingReadAccessToURL"]];
+    
+  if (fileUrl && [_webView respondsToSelector:@selector(loadFileURL:allowingReadAccessToURL:)]) {
+    NSURL *fileURL = [RCTConvert NSURL:fileUrl];
+    NSURL *baseURL = [RCTConvert NSURL:allowingReadAccessToURL];
+    [_webView loadFileURL:fileURL allowingReadAccessToURL:baseURL];
+    return;
+  }
+
   // Check for a static html source first
   NSString *html = [RCTConvert NSString:_source[@"html"]];
   if (html) {

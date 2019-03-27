@@ -98,7 +98,21 @@ export interface WebViewSourceHtml {
   baseUrl?: string;
 }
 
-export type WebViewSource = WebViewSourceUri | WebViewSourceHtml;
+export interface WebViewSourceFile {
+  /**
+   * The URI to a local file to be loaded into a WKWebView.
+   * @platform ios
+   */
+  fileUrl?: string;
+  /**
+   * The URL to which file read access is permitted. Can be a 
+   * folder, or the file itself.
+   * @platform ios
+   */
+  allowingReadAccessToURL?: string;
+}
+
+export type WebViewSource = WebViewSourceUri | WebViewSourceHtml | WebViewSourceFile;
 
 export interface WebViewNativeConfig {
   /*
